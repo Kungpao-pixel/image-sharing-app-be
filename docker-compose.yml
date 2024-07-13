@@ -1,0 +1,27 @@
+version: 'v2.27.1'
+
+services:
+  backend:
+    build: .
+    container_name: sharingappbe
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DATABASE_URL=postgres://postgres:luthfi12@db:5432/image-sharing-app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: imagesharingapp_db
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
